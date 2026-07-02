@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milad Heydari — Data Analyst & BI Developer</title>
+<meta name="description" content="Milad Heydari — Data Analyst & BI Developer. 2+ years building enterprise dashboards for Keshavarzi Bank and SAMAT (CSDI Iran).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0E14;
+    --panel:#121824;
+    --panel-2:#0E141E;
+    --border:#212B39;
+    --border-soft:#1A2330;
+    --text:#E7ECF2;
+    --text-dim:#8A97A8;
+    --text-faint:#556174;
+    --gold:#E8A548;
+    --gold-dim:#8A6A3A;
+    --blue:#4C8EF7;
+    --green:#34C77B;
+    --radius:10px;
+    --font-display:'Space Grotesk', sans-serif;
+    --font-body:'Inter', sans-serif;
+    --font-mono:'JetBrains Mono', monospace;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    line-height:1.6;
+    background-image:
+      linear-gradient(var(--border-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border-soft) 1px, transparent 1px);
+    background-size:48px 48px;
+    background-attachment:fixed;
+    background-position:center top;
+  }
+
+  ::selection{background:var(--gold);color:#0A0E14;}
+
+  a{color:inherit;text-decoration:none;}
+
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px;}
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(10,14,20,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border-soft);
+  }
+  .nav-inner{
+    max-width:1040px;margin:0 auto;padding:14px 24px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .nav-brand{
+    font-family:var(--font-mono);font-size:13px;color:var(--text-dim);
+    display:flex;align-items:center;gap:8px;
+  }
+  .nav-brand .dot{width:7px;height:7px;border-radius:50%;background:var(--green);
+    box-shadow:0 0 8px var(--green); animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+  .nav-links{display:flex;gap:28px;font-size:13px;font-family:var(--font-mono);}
+  .nav-links a{color:var(--text-dim);transition:color .2s;position:relative;}
+  .nav-links a:hover, .nav-links a:focus-visible{color:var(--gold);}
+  .nav-links a:focus-visible{outline:1px solid var(--gold);outline-offset:4px;}
+  @media (max-width:640px){.nav-links{display:none;}}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:88px 0 56px;}
+  .eyebrow{
+    font-family:var(--font-mono);font-size:12px;color:var(--gold);
+    letter-spacing:.12em;text-transform:uppercase;
+    display:flex;align-items:center;gap:10px;margin-bottom:18px;
+  }
+  .eyebrow::before{content:'';width:22px;height:1px;background:var(--gold);}
+  h1.title{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:clamp(2.4rem, 6vw, 4.2rem);
+    line-height:1.02;
+    letter-spacing:-.02em;
+    margin-bottom:14px;
+  }
+  .role{
+    font-family:var(--font-display);font-weight:500;
+    font-size:clamp(1.1rem,2.4vw,1.5rem);
+    color:var(--text-dim);
+    margin-bottom:22px;
+  }
+  .tagline{max-width:540px;color:var(--text-dim);font-size:1rem;margin-bottom:34px;}
+
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:56px;}
+  .btn{
+    font-family:var(--font-mono);font-size:13px;font-weight:500;
+    padding:12px 20px;border-radius:8px;
+    display:inline-flex;align-items:center;gap:8px;
+    transition:transform .15s, border-color .15s, background .15s;
+    border:1px solid var(--border);
+  }
+  .btn-primary{background:var(--gold);color:#14100a;border-color:var(--gold);}
+  .btn-primary:hover{transform:translateY(-2px);background:#f0b25e;}
+  .btn-ghost{color:var(--text);}
+  .btn-ghost:hover{border-color:var(--gold-dim);transform:translateY(-2px);}
+  .btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+
+  /* KPI row */
+  .kpi-row{
+    display:grid;grid-template-columns:repeat(4,1fr);
+    border:1px solid var(--border);border-radius:var(--radius);
+    overflow:hidden;background:var(--panel);
+  }
+  .kpi{padding:20px 18px;border-right:1px solid var(--border);}
+  .kpi:last-child{border-right:none;}
+  .kpi-num{font-family:var(--font-mono);font-size:1.7rem;font-weight:600;color:var(--gold);}
+  .kpi-label{font-size:11.5px;color:var(--text-faint);text-transform:uppercase;letter-spacing:.06em;margin-top:4px;}
+  @media (max-width:700px){
+    .kpi-row{grid-template-columns:repeat(2,1fr);}
+    .kpi{border-bottom:1px solid var(--border);}
+    .kpi:nth-child(2n){border-right:none;}
+  }
+
+  /* ---------- QUERY CONSOLE (signature element) ---------- */
+  .console{
+    margin:40px 0 0;
+    border:1px solid var(--border);border-radius:var(--radius);
+    background:var(--panel-2);overflow:hidden;
+  }
+  .console-bar{
+    display:flex;align-items:center;gap:8px;
+    padding:10px 16px;border-bottom:1px solid var(--border);
+    background:var(--panel);
+  }
+  .console-bar span{width:9px;height:9px;border-radius:50%;background:var(--border);}
+  .console-title{
+    margin-left:10px;font-family:var(--font-mono);font-size:12px;color:var(--text-faint);
+  }
+  .console-body{padding:20px 22px;font-family:var(--font-mono);font-size:13.5px;}
+  .console-body .kw{color:var(--blue);}
+  .console-body .str{color:var(--green);}
+  .console-body .com{color:var(--text-faint);}
+  #typed-query{white-space:pre-wrap;color:var(--text-dim);}
+  #typed-query .cursor{display:inline-block;width:8px;background:var(--gold);
+    animation:blink 1s step-end infinite;margin-left:1px;}
+  @keyframes blink{50%{opacity:0;}}
+  .result-table{
+    margin-top:16px;width:100%;border-collapse:collapse;font-size:13px;
+    opacity:0;transform:translateY(6px);transition:opacity .5s ease, transform .5s ease;
+  }
+  .result-table.show{opacity:1;transform:translateY(0);}
+  .result-table th{
+    text-align:left;color:var(--text-faint);font-weight:500;
+    padding:8px 14px;border-bottom:1px solid var(--border);text-transform:uppercase;font-size:10.5px;letter-spacing:.06em;
+  }
+  .result-table td{padding:9px 14px;border-bottom:1px solid var(--border-soft);color:var(--text);}
+  .result-table td.num{color:var(--gold);}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:72px 0;border-top:1px solid var(--border-soft);}
+  .section-head{display:flex;align-items:baseline;gap:14px;margin-bottom:34px;}
+  .section-tag{font-family:var(--font-mono);font-size:12px;color:var(--gold);letter-spacing:.08em;}
+  h2.section-title{font-family:var(--font-display);font-size:1.7rem;font-weight:600;}
+
+  /* ---------- SUMMARY ---------- */
+  .summary-panel{
+    border:1px solid var(--border);border-radius:var(--radius);
+    background:var(--panel);padding:26px 28px;position:relative;
+  }
+  .summary-panel::before{
+    content:'-- profile.summary';
+    display:block;font-family:var(--font-mono);font-size:11px;color:var(--text-faint);margin-bottom:14px;
+  }
+  .summary-panel p{color:var(--text-dim);font-size:15px;max-width:720px;}
+
+  /* ---------- EXPERIENCE ---------- */
+  .job{
+    border:1px solid var(--border);border-radius:var(--radius);
+    background:var(--panel);padding:26px 28px;margin-bottom:22px;
+    opacity:0;transform:translateY(14px);transition:opacity .6s ease, transform .6s ease;
+  }
+  .job.show{opacity:1;transform:translateY(0);}
+  .job-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:6px;}
+  .job-co{font-family:var(--font-display);font-weight:600;font-size:1.15rem;}
+  .job-sub{color:var(--text-faint);font-size:13px;}
+  .job-date{font-family:var(--font-mono);font-size:12px;color:var(--blue);white-space:nowrap;}
+  .job ul{margin:16px 0 18px 20px;color:var(--text-dim);font-size:14.5px;}
+  .job li{margin-bottom:8px;}
+  .job li::marker{color:var(--gold);}
+  .tag-row{display:flex;flex-wrap:wrap;gap:8px;}
+  .tag{
+    font-family:var(--font-mono);font-size:11px;padding:4px 10px;border-radius:5px;
+    border:1px solid var(--border);color:var(--text-faint);
+  }
+
+  /* ---------- SKILLS ---------- */
+  .skill-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+  @media (max-width:640px){.skill-grid{grid-template-columns:1fr;}}
+  .skill-cat{border:1px solid var(--border);border-radius:var(--radius);background:var(--panel);padding:20px 22px;}
+  .skill-cat h3{
+    font-family:var(--font-mono);font-size:11.5px;color:var(--text-faint);
+    text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px;
+  }
+  .chip-row{display:flex;flex-wrap:wrap;gap:9px;}
+  .chip{
+    font-family:var(--font-mono);font-size:12.5px;padding:6px 12px;border-radius:6px;
+    background:var(--panel-2);border:1px solid var(--border);color:var(--text);
+    transition:border-color .15s, color .15s;
+  }
+  .chip:hover{border-color:var(--gold-dim);color:var(--gold);}
+
+  /* ---------- CERTS / EDU ---------- */
+  .cert-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+  @media (max-width:640px){.cert-grid{grid-template-columns:1fr;}}
+  .cert{
+    border:1px solid var(--border);border-radius:var(--radius);background:var(--panel);
+    padding:18px 20px;display:flex;gap:14px;align-items:flex-start;
+  }
+  .cert-mark{
+    font-family:var(--font-mono);color:var(--gold);font-size:13px;flex-shrink:0;
+    width:26px;height:26px;border:1px solid var(--gold-dim);border-radius:6px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .cert-name{font-weight:600;font-size:14px;}
+  .cert-issuer{color:var(--text-faint);font-size:12.5px;margin-top:2px;}
+
+  .edu-panel{
+    border:1px solid var(--border);border-radius:var(--radius);background:var(--panel);
+    padding:22px 26px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;align-items:center;margin-top:34px;
+  }
+  .edu-degree{font-weight:600;font-family:var(--font-display);}
+  .edu-school{color:var(--text-faint);font-size:13.5px;margin-top:3px;}
+  .edu-date{font-family:var(--font-mono);font-size:12px;color:var(--blue);}
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  .contact-panel{
+    border:1px solid var(--border);border-radius:var(--radius);
+    background:linear-gradient(160deg, var(--panel), var(--panel-2));
+    padding:44px 36px;text-align:center;
+  }
+  .contact-panel h2{font-family:var(--font-display);font-size:1.9rem;margin-bottom:12px;}
+  .contact-panel p{color:var(--text-dim);margin-bottom:26px;}
+  .contact-links{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;}
+
+  footer{
+    padding:24px 0 40px;
+    font-family:var(--font-mono);font-size:11.5px;color:var(--text-faint);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+    border-top:1px solid var(--border-soft);margin-top:20px;
+  }
+  .status-dot{color:var(--green);}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important;transition:none !important;}
+    .job{opacity:1;transform:none;}
+    .result-table{opacity:1;transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand"><span class="dot"></span> milad--heydari</div>
+    <nav class="nav-links">
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#certs">Certificates</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="hero" style="border-top:none;padding-top:88px;">
+    <div class="eyebrow">Report generated for hiring managers</div>
+    <h1 class="title">Milad Heydari</h1>
+    <div class="role">Data Analyst &amp; BI Developer</div>
+    <p class="tagline">I turn raw banking data into dashboards executives actually trust — built with Power BI, Dundas BI, T‑SQL and a lot of attention to how people actually filter, bookmark, and read a report.</p>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="mailto:miladofficial2@gmail.com">Email me →</a>
+      <a class="btn btn-ghost" href="tel:+9393690547">+98 939 369 0547</a>
+      <a class="btn btn-ghost" href="#experience">See the work ↓</a>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-num">2+</div><div class="kpi-label">Years experience</div></div>
+      <div class="kpi"><div class="kpi-num">60+</div><div class="kpi-label">Dashboards shipped</div></div>
+      <div class="kpi"><div class="kpi-num">2</div><div class="kpi-label">Enterprise clients</div></div>
+      <div class="kpi"><div class="kpi-num">Tehran</div><div class="kpi-label">Based in</div></div>
+    </div>
+
+    <div class="console">
+      <div class="console-bar">
+        <span></span><span></span><span></span>
+        <span class="console-title">query — profile.sql</span>
+      </div>
+      <div class="console-body">
+        <div id="typed-query"></div>
+        <table class="result-table" id="result-table">
+          <thead><tr><th>company</th><th>role_focus</th><th>dashboards</th></tr></thead>
+          <tbody>
+            <tr><td>Keshavarzi Bank</td><td>BI + Custom UI Systems</td><td class="num">60+</td></tr>
+            <tr><td>SAMAT (CSDI Iran)</td><td>Reporting Platform, Built From Scratch</td><td class="num">1 platform</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="section-head"><span class="section-tag">01</span><h2 class="section-title">Summary</h2></div>
+    <div class="summary-panel">
+      <p>Over 2 years of enterprise experience designing and developing business intelligence solutions, high‑performance reporting systems, and analytical dashboards for major banking and financial institutions, including Keshavarzi Bank and SAMAT (CSDI Iran). Proficient in modern data architectures, dimensional modeling, and end‑to‑end dashboard engineering using Power BI, Dundas BI, and SQL Server — with a habit of reaching for T‑SQL, JavaScript, HTML, and CSS whenever an off‑the‑shelf feature isn't enough for what a report actually needs to do.</p>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="section-head"><span class="section-tag">02</span><h2 class="section-title">Experience</h2></div>
+
+    <div class="job">
+      <div class="job-head">
+        <div>
+          <div class="job-co">Keshavarzi Bank of Iran</div>
+          <div class="job-sub">via Son Corporate Group</div>
+        </div>
+        <div class="job-date">01/2024 – 11/2024 · 07/2025 – 03/2026</div>
+      </div>
+      <ul>
+        <li>Designed and maintained 60+ analytical dashboards and reports for banking projects using Power BI, SQL Server, JavaScript, HTML, and CSS.</li>
+        <li>Built an advanced Persian (Jalali) calendar with an intelligent date‑range picker, official holiday support, a 7‑day restriction rule, and smart start/end date validation across daily and monthly views.</li>
+        <li>Built a fully custom bookmark system on stored procedures, JavaScript, HTML, and CSS — supporting admin and user roles, filter &amp; column persistence, and cross‑page state management.</li>
+        <li>Shipped column freezing, branch‑level access control inside bookmarks, and CSV‑based group filtering with complex state handling.</li>
+        <li>Designed multiple custom filter types: single‑level, range, and restricted selections.</li>
+      </ul>
+      <div class="tag-row">
+        <span class="tag">Power BI</span><span class="tag">SQL Server</span><span class="tag">JavaScript</span><span class="tag">HTML/CSS</span><span class="tag">Stored Procedures</span>
+      </div>
+    </div>
+
+    <div class="job">
+      <div class="job-head">
+        <div>
+          <div class="job-co">SAMAT (CSDI Iran)</div>
+          <div class="job-sub">via Son Corporate Group</div>
+        </div>
+        <div class="job-date">12/2024 – 06/2025</div>
+      </div>
+      <ul>
+        <li>Designed and implemented the entire reporting system from scratch — login page, report UI, and full user experience.</li>
+        <li>Developed a rule‑based access management system granting permissions at domain and individual report level.</li>
+        <li>Built a custom data connector in JavaScript for linking to reporting data sources.</li>
+        <li>Implemented the Persian calendar and CSV‑based group filter functionality for the platform.</li>
+      </ul>
+      <div class="tag-row">
+        <span class="tag">JavaScript</span><span class="tag">System Design</span><span class="tag">Access Control</span><span class="tag">UX</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-head"><span class="section-tag">03</span><h2 class="section-title">Skills</h2></div>
+    <div class="skill-grid">
+      <div class="skill-cat">
+        <h3>Programming</h3>
+        <div class="chip-row"><span class="chip">Python</span><span class="chip">JavaScript</span><span class="chip">T‑SQL</span></div>
+      </div>
+      <div class="skill-cat">
+        <h3>BI &amp; Data</h3>
+        <div class="chip-row"><span class="chip">SSIS</span><span class="chip">ETL</span></div>
+      </div>
+      <div class="skill-cat">
+        <h3>Dashboard Tools</h3>
+        <div class="chip-row"><span class="chip">Power BI</span><span class="chip">Dundas BI</span></div>
+      </div>
+      <div class="skill-cat">
+        <h3>Frontend</h3>
+        <div class="chip-row"><span class="chip">HTML</span><span class="chip">CSS</span></div>
+      </div>
+    </div>
+
+    <div class="edu-panel">
+      <div>
+        <div class="edu-degree">B.C.S. Computer Science</div>
+        <div class="edu-school">Azad University, Central Tehran Branch</div>
+      </div>
+      <div class="edu-date">2021 – 2025</div>
+    </div>
+  </section>
+
+  <section id="certs">
+    <div class="section-head"><span class="section-tag">04</span><h2 class="section-title">Certificates</h2></div>
+    <div class="cert-grid">
+      <div class="cert">
+        <div class="cert-mark">01</div>
+        <div><div class="cert-name">Python Programming</div><div class="cert-issuer">Pytopia</div></div>
+      </div>
+      <div class="cert">
+        <div class="cert-mark">02</div>
+        <div><div class="cert-name">Power BI — Beginner to Intermediate</div><div class="cert-issuer">Faratar az Danesh</div></div>
+      </div>
+      <div class="cert">
+        <div class="cert-mark">03</div>
+        <div><div class="cert-name">Database Design</div><div class="cert-issuer">Faratar az Danesh</div></div>
+      </div>
+      <div class="cert">
+        <div class="cert-mark">04</div>
+        <div><div class="cert-name">BI Specialist</div><div class="cert-issuer">Faratar az Danesh</div></div>
+      </div>
+      <div class="cert">
+        <div class="cert-mark">05</div>
+        <div><div class="cert-name">SQL Query Writing</div><div class="cert-issuer">Faratar az Danesh</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact-panel">
+      <h2>Let's build your next dashboard.</h2>
+      <p>Open to BI development and data analyst roles — remote or Tehran‑based.</p>
+      <div class="contact-links">
+        <a class="btn btn-primary" href="mailto:miladofficial2@gmail.com">miladofficial2@gmail.com</a>
+        <a class="btn btn-ghost" href="tel:+9393690547">+98 939 369 0547</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div><span class="status-dot">●</span> Available for new projects</div>
+    <div>Tehran, Iran</div>
+  </footer>
+
+</div>
+
+<script>
+  // Typing effect for the query console
+  const queryLines = [
+    { text: 'SELECT ', cls: 'kw' },
+    { text: 'role, focus, dashboards_shipped\n', cls: '' },
+    { text: 'FROM ', cls: 'kw' },
+    { text: 'milad_heydari\n', cls: '' },
+    { text: 'WHERE ', cls: 'kw' },
+    { text: "focus = ", cls: '' },
+    { text: "'BI Development';", cls: 'str' },
+  ];
+  const full = queryLines.map(l => l.text).join('');
+  const target = document.getElementById('typed-query');
+  const resultTable = document.getElementById('result-table');
+  let i = 0;
+
+  function typeStep(){
+    if(i <= full.length){
+      target.innerHTML = escapeHtml(full.slice(0, i)) + '<span class="cursor">&nbsp;</span>';
+      i++;
+      setTimeout(typeStep, 16 + Math.random()*22);
+    } else {
+      target.querySelector('.cursor')?.remove();
+      resultTable.classList.add('show');
+    }
+  }
+  function escapeHtml(str){
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+  window.addEventListener('load', () => setTimeout(typeStep, 400));
+
+  // Reveal experience cards on scroll
+  const jobs = document.querySelectorAll('.job');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  jobs.forEach(j => io.observe(j));
+</script>
+
+</body>
+</html>
